@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import './index.css';
+import PropTypes from 'prop-types';
 
 
 
@@ -22,6 +23,10 @@ function Tweet({ tweet }) {
 		</div>
 		</div>);
 }
+Tweet.propTypes = {
+	tweet: PropTypes.object
+}
+
 function Avatar({ hash }) {
 	var url = "https://www.gravatar.com/avatar/" + hash
 	return (
@@ -30,12 +35,22 @@ function Avatar({ hash }) {
 		alt="avatar"/>
 	);
 }
+Avatar.propTypes = {
+	hash: PropTypes.string
+};
+
+
+
 function Message({ text }) {
 	return (
 		<div className="message">
 		{ text }
 		</div>);
 					}
+Message.propTypes = {
+	text: PropTypes.string
+};
+
 function NameWithHandle({ author }) {
 	const { name, handle } = author;
 	return (
@@ -43,7 +58,14 @@ function NameWithHandle({ author }) {
 		<span className = "name">{name}</span>
 		<span className = "handle">@{handle}</span>
 		</span>);
-	}
+	};
+
+NameWithHandle.propTypes = {
+	author: PropTypes.shape({
+		name: PropTypes.string.isRequired,
+		handle: PropTypes.string.isRequired
+	}).isRequired
+};
 
 const Time = ({ time }) => {
 	const timeString = moment(time).fromNow();
@@ -52,6 +74,9 @@ const Time = ({ time }) => {
 		{timeString}
 		</span>
 		);
+};
+Time.propTypes = {
+	time: PropTypes.string
 };
 
 const ReplyButton = () => (
@@ -77,6 +102,10 @@ const RetweetButton = ({ count }) => (
 	{getRetweetCount(count)}
 	</span>
 	);
+RetweetButton.propTypes = {
+	count: PropTypes.number
+};
+
 
 
 
@@ -88,6 +117,9 @@ const LikeButton = ({ count }) => (
 	</span>}
 	</span>
 	);
+LikeButton.propTypes = {
+	count: PropTypes.number
+};
 
 
 
